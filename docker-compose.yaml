@@ -1,0 +1,31 @@
+services:
+  rvc:
+    build: .
+    container_name: rvc
+
+    ports:
+      - "7865:7865"
+
+    volumes:
+      # Trained/exported voice models
+      - ./assets/weights:/app/assets/weights
+
+      # RVC retrieval indexes
+      - ./assets/indices:/app/assets/indices
+
+      # Training runs, checkpoints and generated indexes
+      - ./logs:/app/logs
+
+      # Your authorized voice datasets
+      - ./datasets:/app/datasets
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities:
+                - gpu
+
+    restart: unless-stopped
