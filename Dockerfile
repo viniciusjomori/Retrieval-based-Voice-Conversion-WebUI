@@ -53,7 +53,7 @@ RUN mkdir -p \
     .model-downloads
 
 # Hugging Face CLI
-RUN python -m pip install --upgrade huggingface_hub
+RUN python -m pip install "huggingface_hub>=0.34,<1.0"
 
 # HuBERT
 RUN hf download lj1995/VoiceConversionWebUI \
